@@ -16,13 +16,13 @@ const partTwo = () => {
     fileLines.forEach(l => {
         const gameId = l.substring(l.indexOf(' '), l.indexOf(':')).trim();
         l = l.substring(l.indexOf(':') + 1).trim(); // Cut off "Game ##: " from string
-        let minCounts = {};
+        let maxCounts = {};
         Object.keys(limits).forEach((color) => {
             const allNums = Array.from(l.matchAll(/((?<num>\d+)\s(?<color>\w+))/gm));
             const colorMin = Math.max(...Array.from(allNums.map(n => n.groups).filter(i => i.color === color).values()).map(i => i.num));
-            minCounts[color] = colorMin;
+            maxCounts[color] = colorMin;
         });
-        powers.push(Object.values(minCounts).reduce((a, b) => (isNaN(b)) ? a : a * b));
+        powers.push(Object.values(maxCounts).reduce((a, b) => (isNaN(b)) ? a : a * b));
     });
 
     console.log(powers.reduce((a, b) => a + b));

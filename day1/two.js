@@ -2,20 +2,6 @@ const { readFileSync } = require('fs');
 const inputData = readFileSync('./input', 'utf-8'),
 splitData = inputData.split('\n');
 
-const sum = (arr) => {
-    arr.reduce((acc, curr) => acc + curr);
-}
-    
-const readFile = (filename, encoding) => {
-    try {
-        const fileData = fs.readFileSync(filename, encoding || 'utf8');
-        return fileData;
-    } catch (err) {
-        console.error("Could not read input file: " + err)
-        process.exit(-1);
-    }
-}
-
 
 const numbers = {
     'one': 1,
@@ -36,15 +22,6 @@ const isASCIIDigit = (numStr) => {
     return false;
 }
 
-const isTextDigit = (text) => {
-    const textDigits = Object.keys(numbers);
-    return textDigits.filter(a => text === a).length > 0;
-}
-
-const isDigit = (text) => {
-    return isASCIIDigit(text) || isTextDigit(text);
-}
-
 const getFirstDigit = (text) => {
     let digit, idx = 0;
     while (digit === undefined && idx < text.length) {
@@ -63,26 +40,6 @@ const getLastDigit = (text) => {
     }
     return digit;
 }
-
-const solutionOne = () => {
-    let results = [];
-    
-    for (const i in splitData) {
-        const text = splitData[i];
-        if (text === "") continue;
-        let firstDigit = getFirstDigit(text),
-            lastDigit = getLastDigit(text);
-        
-        if (firstDigit !== undefined && lastDigit !== undefined) {
-            results[i] = parseInt(firstDigit + lastDigit);
-        } else {
-            process.exit(2);
-        }
-    }
-
-    console.log("Sum: " + results.reduce((a, b) => a + b));
-    
-};
 
 const solutionTwo = () => {
     let results = [];
@@ -135,11 +92,9 @@ let oldText = text;
         } else {
             process.exit(2);
         }
-        console.log(oldText + " -> " + text + " -> " + results[i]);
     }
-//console.log();
- console.log("Sum: " + results.reduce((a, b) => a + b));
- console.log("Lines read: " + splitData.length);
+
+    console.log("Sum: " + results.reduce((a, b) => a + b));
     return;
 };
 

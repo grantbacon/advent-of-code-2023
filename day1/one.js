@@ -45,7 +45,7 @@ const app = () => {
         }
     }
 
-    const sum = results.map(i => parseInt(i)).reduce((acc, curr) => acc + curr);
+    const sum = results.map(i => parseInt(i)).reduce((a, b) => a + b);
     console.log(sum);
     
 
